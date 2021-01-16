@@ -1,4 +1,5 @@
 from bravado.client import SwaggerClient
 
-client = SwaggerClient.from_url("http://127.0.0.1:8000/swagger.json")
+url_local = "file:///D:/git/dawpy/swagger.json"
+client = SwaggerClient.from_url(url_local)
 res = client.daw.get().response().result

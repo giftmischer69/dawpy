@@ -29,13 +29,19 @@ app = FastAPI(
 daw: Daw = Daw()
 
 
-@app.get('/', response_model=Daw)
-def get_root() -> Daw:
-    """
-    get current daw state
-    """
-    logger.warn(daw.__dict__)
-    return daw
+@app.get('/swagger.json')
+def get_root():
+    with open("swagger.json", "r") as f:
+        return f.read().object()
+
+
+#@app.get('/', response_model=Daw)
+#def get_root() -> Daw:
+#    """
+#    get current daw state
+#    """
+#    logger.warn(daw.__dict__)
+#    return daw
 
 
 @app.get('/daw', response_model=Daw)
