@@ -1,0 +1,47 @@
+!!python/object:__main__.Playlist
+bpm: 90
+daw_config: !!python/object:__main__.DawConfig
+  config_name: default
+  daw_config_path: data\daw_config
+  mrs_watson_path: tools\MrsWatson-0.9.8\Windows\mrswatson.exe
+  nano_host_path: tools\Tone2 NanoHost v1.0.2\NanoHost64bit.exe
+  pattern_path: data\patterns
+  plugin_path: plugins
+  preset_path: plugins\presets
+  projects_path: data\projects
+  rendered_path: data\rendered
+  wusic_dll_path: tools\Wusik VM\Wusik VM.dll
+pattern_length: 8
+patterns:
+- &id001 !!python/object:__main__.Pattern
+  midi_path: D:/git/dawpy/data/patterns/drum/kick/2bar/Kick.mid
+  name: kick
+  plugin: !!python/object:__main__.Plugin
+    dll_path: D:/git/dawpy/plugins/generators/grace/Grace.dll
+    name: grace
+    preset_path: D:/git/dawpy/plugins/presets/grace/kick.fxp
+  volume: 75
+- &id002 !!python/object:__main__.Pattern
+  midi_path: D:/git/dawpy/data/patterns/drum/snare/2bar/snare_2bar.mid
+  name: snare
+  plugin: !!python/object:__main__.Plugin
+    dll_path: D:/git/dawpy/plugins/generators/grace/Grace.dll
+    name: grace
+    preset_path: D:/git/dawpy/plugins/presets/grace/snare.fxp
+  volume: 75
+playlist:
+  '00':
+  - *id001
+  '01':
+  - *id002
+  '02':
+  - *id001
+  - *id002
+  '03':
+  - *id001
+  - *id002
+  '04': []
+  '05': []
+  '06': []
+  '07': []
+song_name: dev

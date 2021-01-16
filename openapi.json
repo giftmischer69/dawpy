@@ -1,0 +1,487 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "dawpy server",
+    "description": "This is the daw server api",
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+    },
+    "version": "0.1.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost/"
+    },
+    {
+      "url": "http://localhost/"
+    }
+  ],
+  "paths": {
+    "/playlist": {
+      "post": {
+        "summary": "create a new playlist",
+        "operationId": "createPlaylist",
+        "requestBody": {
+          "description": "Playlist object to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Playlist"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/playlist/add/{index}/{pattern_name}": {
+      "post": {
+        "summary": "add pattern to songmap at index",
+        "operationId": "addPatternToSongMap",
+        "parameters": [
+          {
+            "name": "pattern_name",
+            "in": "path",
+            "description": "The name that needs to be added.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "index",
+            "in": "path",
+            "description": "where in the songmap to add the pattern.",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pattern"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/plugin": {
+      "get": {
+        "summary": "get registered plugins",
+        "description": "returns the current playlist",
+        "operationId": "getPlugins",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Plugin"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "register a new plugin",
+        "operationId": "registerPlugin",
+        "requestBody": {
+          "description": "plugin object to be registered",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Plugin"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/plugin/{plugin_name}": {
+      "get": {
+        "summary": "Get plugin by name",
+        "operationId": "getPluginByName",
+        "parameters": [
+          {
+            "name": "plugin_name",
+            "in": "path",
+            "description": "The name that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pattern"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      },
+      "patch": {
+        "summary": "Configure Plugin",
+        "operationId": "configurePlugin",
+        "parameters": [
+          {
+            "name": "plugin_name",
+            "in": "path",
+            "description": "The name that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/pattern": {
+      "post": {
+        "summary": "create a new pattern",
+        "operationId": "createPattern",
+        "requestBody": {
+          "description": "pattern object to be created",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Pattern"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "405": {
+            "description": "Invalid input",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      }
+    },
+    "/pattern/{pattern_name}": {
+      "get": {
+        "summary": "Get pattern by name",
+        "operationId": "getPatternByName",
+        "parameters": [
+          {
+            "name": "pattern_name",
+            "in": "path",
+            "description": "The name that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pattern"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "update a pattern by name",
+        "operationId": "updatePattern",
+        "parameters": [
+          {
+            "name": "pattern_name",
+            "in": "path",
+            "description": "The name that needs to be fetched.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "pattern object that needs to be added to the store",
+          "content": {
+            "*/*": {
+              "schema": {
+                "$ref": "#/components/schemas/Pattern"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Pattern"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Invalid username supplied",
+            "content": {}
+          },
+          "404": {
+            "description": "User not found",
+            "content": {}
+          }
+        },
+        "x-codegen-request-body-name": "body"
+      },
+      "patch": {
+        "summary": "Configure Pattern",
+        "operationId": "configurePattern",
+        "parameters": [
+          {
+            "name": "pattern_name",
+            "in": "path",
+            "description": "The name that needs to be configured.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {}
+          }
+        }
+      }
+    },
+    "/daw": {
+      "get": {
+        "summary": "get current playlist",
+        "description": "returns the current playlist",
+        "operationId": "getPlaylist",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Daw"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/daw/render": {
+      "get": {
+        "summary": "render current playlist",
+        "description": "returns the path of the rendered object",
+        "operationId": "renderPlaylist",
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Playlist": {
+        "required": [
+          "bpm",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "bpm": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "patterns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Pattern"
+            }
+          },
+          "playlist_dict": {
+            "$ref": "#/components/schemas/SongMap"
+          }
+        }
+      },
+      "SongMap": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "object",
+          "properties": {
+            "index": {
+              "type": "integer"
+            },
+            "patterns": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/Pattern"
+              }
+            }
+          }
+        }
+      },
+      "Pattern": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "plugin": {
+            "$ref": "#/components/schemas/Plugin"
+          },
+          "midi_path": {
+            "type": "string"
+          }
+        }
+      },
+      "Plugin": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "dll_path": {
+            "type": "string"
+          },
+          "preset_path": {
+            "type": "string"
+          }
+        }
+      },
+      "Daw": {
+        "type": "object",
+        "properties": {
+          "daw_config_folder_path": {
+            "type": "string"
+          },
+          "daw_config": {
+            "$ref": "#/components/schemas/DawConfig"
+          },
+          "playlist": {
+            "$ref": "#/components/schemas/Playlist"
+          }
+        }
+      },
+      "DawConfig": {
+        "type": "object",
+        "properties": {
+          "config_name": {
+            "type": "string"
+          },
+          "daw_config_path": {
+            "type": "string"
+          },
+          "mrs_watson_64bit_path": {
+            "type": "string"
+          },
+          "mrs_watson_32bit_path": {
+            "type": "string"
+          },
+          "nano_host_64bit_path": {
+            "type": "string"
+          },
+          "nano_host_32bit_path": {
+            "type": "string"
+          },
+          "pattern_path": {
+            "type": "string"
+          },
+          "plugin_path": {
+            "type": "string"
+          },
+          "preset_path": {
+            "type": "string"
+          },
+          "projects_path": {
+            "type": "string"
+          },
+          "rendered_path": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

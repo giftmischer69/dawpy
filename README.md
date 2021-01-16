@@ -1,64 +1,62 @@
-# dawpy
-## user functions (TODO: Implement in daw/dawserver):
-- [X] create new project, name, bpm
-- [X] register plugin, plugin parameters
-- [X] get registered plugins
-- [X] create new pattern, name, optional: other params 
-- [X] pattern set 
-- [ ] determine pattern length with midi length
-- [X] add pattern to playlist
-- [X] configure plugin
-- [X] configure pattern
-- [ ] save playlist
-- [ ] save pattern
-- [ ] save plugin
-- [X] load playlist
-- [X] load pattern
-- [X] load plugin
-- [ ] render pattern
-- [X] render playlist
-- [ ] implement auto save
-## normal procedure
-- opens programm
-  - daw_config = the user config / if none -> default.yaml / # if none -> get_default() with hardcoded values to create default.yaml
-  - playlist = default / empty project / default.yaml
-- check registered plugins
-- register plugin
-- create new playlist
-- create new pattern
-- add pattern to playlist
-- render playlist
+# daw
 
-## components
-### DawServer:
-a fastapi server exposing a rest-api which acts as the controller. it takes get, put, etc. and runs commands with the local daw object. 
-### Daw:
-a python class / api which acts as the model and can be normally imported with python, gets manipulated in dawpy by dawserver
-### PromptClient:
-python/bash-like interactive shell. commands get parsed and sent to the dawserver, results can be displayed. 
-TODO: add to view: piano roll
-### WebClient:
-[angular|react|vue] frontend server communicating with the DawServer, serving a beautiful (locally hosted) interactive Website (like jupyter) 
+run in docker container for urwid support maybe ? :)
 
-## for setup.py
-- https://stackoverflow.com/questions/46775346/what-do-square-brackets-mean-in-pip-install
-- https://github.com/apache/airflow/blob/master/setup.py
-- dawpy - daw python package 
-- dawpy[prompt] - server + daw + promptclient
-- dawpy[gui] - server + daw + webclient
-- dawpy[jupyter] - daw + jupyter // maybe create example.ipynb
+there needs to be information that is more top level than playlist, which is general config (vs playlist level - project config). need to save plugin(&preset) root folder, pattern(midi) root folder, etc... 
 
-## ideas / planned
-- [ ] for frontend gui: https://rubikscode.net/2020/11/23/deploying-machine-learning-models-with-fastapi-and-angular/
-- [ ] do this:
-`dawpy etc... [-v/--version]
-  Features: WebClient, PromptClient, DawServer, Daw`
-like this: 
-`magick identify -version
-  Features: DPC Cipher Modules OpenCL OpenMP(4.5)`
-- [ ] install with dawpy[prompt] dawpy[gui] etc.
+- empty project with sane defaults, default name=untiteled oder so
+- mrswatson 64 für vst und vsti hosting
+- nanohost 64 für vst config und fxp management
+- wusic 64 vst für fxb -> fxp (öffnen mit nanohost)
+- pydub
 
-## scrap
-multi core processing:
-  - https://github.com/classner/pymp - Easy, OpenMP style multiprocessing for Python
-  - normal threading: x = threading.Thread(target=thread_function, args=(1,)) x.start() x.join() 
+## packages:
+
+- core: python api / class
+
+- cli: wraps core headless for a cli (batch processing)
+
+  - https://github.com/tiangolo/typer
+
+  - https://github.com/tiangolo/typer-cli
+
+- tui: (interactive) CRUD cli loop with commands, wraps core
+  - https://github.com/yaronn/blessed-contrib
+
+- gui: (interactive) jupyter like:
+
+- https://rubikscode.net/2020/11/23/deploying-machine-learning-models-with-fastapi-and-angular/
+
+  - frontend: angular 
+
+  - https://angularjs.org/
+
+  - https://angular.io/cli
+
+  - backend/server: fastapi
+
+  - https://fastapi.tiangolo.com/tutorial/first-steps/
+
+https://pypi.org/project/fastapi-code-generator/
+
+## config
+- yaml serialiation und lieber hydra (als configparser)
+  - https://hydra.cc/docs/intro/
+  - https://pyyaml.org/wiki/PyYAMLDocumentation
+  - https://docs.python.org/3/library/configparser.html
+    
+## deployment
+- github (pages) download for local usage zip or installer
+- online, hosted, to try it out: heroku free
+- conda / pypi / chocolatey / flatpak / pop shop
+
+## targeted platforms:
+- windows
+- ubuntu
+
+## future features & goals:
+- use spacy for ai support https://github.com/explosion
+
+## installation links
+- wusic vm http://www.dontcrack.com/freeware/downloads.php/id/4986/software/Wusik-VM/
+- mrswatson https://github.com/teragonaudio/MrsWatson/releases/download/0.9.8/MrsWatson-0.9.8.zip

@@ -1,0 +1,14 @@
+
+!!python/object:daw.DawConfig
+config_name: default
+daw_config_path: data\daw_config
+mrs_watson_64bit_path: tools\MrsWatson-0.9.8\Windows\mrswatson64.exe
+mrs_watson_32bit_path: tools\MrsWatson-0.9.8\Windows\mrswatson.exe
+nano_host_64bit_path: tools\Tone2 NanoHost v1.0.2\NanoHost64bit.exe
+nano_host_32bit_path: tools\Tone2 NanoHost v1.0.2\NanoHost32bit.exe
+pattern_path: data\patterns
+plugin_path: plugins
+preset_path: plugins\presets
+projects_path: data\projects
+rendered_path: data\rendered
+

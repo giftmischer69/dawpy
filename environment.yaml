@@ -1,0 +1,11 @@
+name: dawpy
+channels:
+  - defaults
+  - conda-forge
+dependencies:
+  - python
+  - pip
+  - pip:
+      - typer
+      - fastapi
+      - uvicorn[standard]

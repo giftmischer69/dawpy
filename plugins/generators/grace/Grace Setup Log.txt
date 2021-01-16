@@ -1,0 +1,205 @@
+2021-01-10 00:44:51.301   Log opened. (Time zone: UTC+01:00)
+2021-01-10 00:44:51.302   Setup version: Inno Setup version 5.5.4 (a)
+2021-01-10 00:44:51.302   Original Setup EXE: C:\Users\neben\AppData\Local\Temp\Temp1_setup_grace_64bit_full_1-0-1-0_windows.zip\Setup_Grace_64bit_Full_1-0-1-0_Windows.exe
+2021-01-10 00:44:51.302   Setup command line: /SL5="$420596,14567121,56832,C:\Users\neben\AppData\Local\Temp\Temp1_setup_grace_64bit_full_1-0-1-0_windows.zip\Setup_Grace_64bit_Full_1-0-1-0_Windows.exe" /SPAWNWND=$5D0528 /NOTIFYWND=$C304FC 
+2021-01-10 00:44:51.302   Windows version: 6.3.9600  (NT platform: Yes)
+2021-01-10 00:44:51.302   64-bit Windows: Yes
+2021-01-10 00:44:51.302   Processor architecture: x64
+2021-01-10 00:44:51.302   User privileges: Administrative
+2021-01-10 00:44:51.302   64-bit install mode: Yes
+2021-01-10 00:44:51.304   Created temporary directory: C:\Users\neben\AppData\Local\Temp\is-PN30G.tmp
+2021-01-10 00:45:38.595   Starting the installation process.
+2021-01-10 00:45:38.596   Creating directory: D:\git\daw\plugins\presets\grace
+2021-01-10 00:45:38.597   Setting permissions on directory: D:\git\daw\plugins\presets\grace
+2021-01-10 00:45:38.597   Starting 64-bit helper process.
+2021-01-10 00:45:38.601   Helper process PID: 13656
+2021-01-10 00:45:39.234   Directory for uninstall files: C:\WINDOWS
+2021-01-10 00:45:39.234   Creating new uninstall log: C:\WINDOWS\unins000.dat
+2021-01-10 00:45:39.236   -- File entry --
+2021-01-10 00:45:39.236   Dest filename: C:\WINDOWS\unins000.exe
+2021-01-10 00:45:39.236   Non-default bitness: 32-bit
+2021-01-10 00:45:39.243   Time stamp of our file: 2021-01-10 00:44:51.203
+2021-01-10 00:45:39.243   Installing the file.
+2021-01-10 00:45:39.245   Uninstaller requires administrator: Yes
+2021-01-10 00:45:39.246   Successfully installed the file.
+2021-01-10 00:45:39.246   -- File entry --
+2021-01-10 00:45:39.247   Dest filename: D:\git\daw\plugins\generators\grace\Grace.dll
+2021-01-10 00:45:39.247   Time stamp of our file: 2015-09-10 13:44:38.000
+2021-01-10 00:45:39.247   Installing the file.
+2021-01-10 00:45:39.247   Creating directory: D:\git\daw\plugins\generators\grace
+2021-01-10 00:45:39.712   Successfully installed the file.
+2021-01-10 00:45:39.712   -- File entry --
+2021-01-10 00:45:39.713   Dest filename: D:\git\daw\plugins\presets\grace\Placeholder.txt
+2021-01-10 00:45:39.713   Time stamp of our file: 2012-07-03 20:33:54.000
+2021-01-10 00:45:39.713   Installing the file.
+2021-01-10 00:45:39.713   Successfully installed the file.
+2021-01-10 00:45:39.713   -- File entry --
+2021-01-10 00:45:39.714   Dest filename: D:\git\daw\plugins\presets\grace\Config Default\KeyCommands.xml
+2021-01-10 00:45:39.714   Time stamp of our file: 2014-10-23 23:26:52.000
+2021-01-10 00:45:39.714   Installing the file.
+2021-01-10 00:45:39.714   Creating directory: D:\git\daw\plugins\presets\grace\Config Default
+2021-01-10 00:45:39.715   Successfully installed the file.
+2021-01-10 00:45:39.715   -- File entry --
+2021-01-10 00:45:39.715   Dest filename: D:\git\daw\plugins\presets\grace\Config Default\KeyHook.xml
+2021-01-10 00:45:39.715   Time stamp of our file: 2014-07-09 23:25:42.000
+2021-01-10 00:45:39.715   Installing the file.
+2021-01-10 00:45:39.716   Successfully installed the file.
+2021-01-10 00:45:39.716   -- File entry --
+2021-01-10 00:45:39.716   Dest filename: D:\git\daw\plugins\presets\grace\Config User Override\Placeholder.txt
+2021-01-10 00:45:39.717   Time stamp of our file: 2014-07-09 23:25:42.000
+2021-01-10 00:45:39.717   Installing the file.
+2021-01-10 00:45:39.717   Creating directory: D:\git\daw\plugins\presets\grace\Config User Override
+2021-01-10 00:45:39.717   Successfully installed the file.
+2021-01-10 00:45:39.717   -- File entry --
+2021-01-10 00:45:39.718   Dest filename: D:\git\daw\plugins\presets\grace\Manual\Grace Manual.html
+2021-01-10 00:45:39.718   Time stamp of our file: 2014-10-26 16:41:06.000
+2021-01-10 00:45:39.718   Installing the file.
+2021-01-10 00:45:39.718   Creating directory: D:\git\daw\plugins\presets\grace\Manual
+2021-01-10 00:45:39.719   Successfully installed the file.
+2021-01-10 00:45:39.719   -- File entry --
+2021-01-10 00:45:39.720   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\EnvelopeControls.png
+2021-01-10 00:45:39.720   Time stamp of our file: 2014-10-08 16:02:06.000
+2021-01-10 00:45:39.720   Installing the file.
+2021-01-10 00:45:39.720   Creating directory: D:\git\daw\plugins\presets\grace\Manual\images
+2021-01-10 00:45:39.721   Successfully installed the file.
+2021-01-10 00:45:39.721   -- File entry --
+2021-01-10 00:45:39.722   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\FilterControls.png
+2021-01-10 00:45:39.722   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.722   Installing the file.
+2021-01-10 00:45:39.724   Successfully installed the file.
+2021-01-10 00:45:39.724   -- File entry --
+2021-01-10 00:45:39.725   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\InternalModulationSetup_Step1.png
+2021-01-10 00:45:39.725   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.725   Installing the file.
+2021-01-10 00:45:39.728   Successfully installed the file.
+2021-01-10 00:45:39.728   -- File entry --
+2021-01-10 00:45:39.728   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\InternalModulationSetup_Step2.png
+2021-01-10 00:45:39.729   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.729   Installing the file.
+2021-01-10 00:45:39.732   Successfully installed the file.
+2021-01-10 00:45:39.732   -- File entry --
+2021-01-10 00:45:39.732   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\InternalModulationSetup_Step3.png
+2021-01-10 00:45:39.732   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.732   Installing the file.
+2021-01-10 00:45:39.735   Successfully installed the file.
+2021-01-10 00:45:39.736   -- File entry --
+2021-01-10 00:45:39.736   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\InternalModulationSetup_Step4.png
+2021-01-10 00:45:39.736   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.736   Installing the file.
+2021-01-10 00:45:39.738   Successfully installed the file.
+2021-01-10 00:45:39.738   -- File entry --
+2021-01-10 00:45:39.738   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\LfoControls.png
+2021-01-10 00:45:39.738   Time stamp of our file: 2014-10-08 16:15:58.000
+2021-01-10 00:45:39.738   Installing the file.
+2021-01-10 00:45:39.740   Successfully installed the file.
+2021-01-10 00:45:39.740   -- File entry --
+2021-01-10 00:45:39.740   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\MainInterfaceDescription.png
+2021-01-10 00:45:39.740   Time stamp of our file: 2014-10-26 16:39:40.000
+2021-01-10 00:45:39.740   Installing the file.
+2021-01-10 00:45:39.749   Successfully installed the file.
+2021-01-10 00:45:39.749   -- File entry --
+2021-01-10 00:45:39.749   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\MainVoiceControls.png
+2021-01-10 00:45:39.750   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.750   Installing the file.
+2021-01-10 00:45:39.751   Successfully installed the file.
+2021-01-10 00:45:39.751   -- File entry --
+2021-01-10 00:45:39.751   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\ModMatrix.png
+2021-01-10 00:45:39.751   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.751   Installing the file.
+2021-01-10 00:45:39.753   Successfully installed the file.
+2021-01-10 00:45:39.753   -- File entry --
+2021-01-10 00:45:39.753   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\SampleMapEditDisplay.png
+2021-01-10 00:45:39.754   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.754   Installing the file.
+2021-01-10 00:45:39.757   Successfully installed the file.
+2021-01-10 00:45:39.757   -- File entry --
+2021-01-10 00:45:39.758   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\SequencerControls.png
+2021-01-10 00:45:39.758   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.758   Installing the file.
+2021-01-10 00:45:39.760   Successfully installed the file.
+2021-01-10 00:45:39.760   -- File entry --
+2021-01-10 00:45:39.760   Dest filename: D:\git\daw\plugins\presets\grace\Manual\images\XyPadControls.png
+2021-01-10 00:45:39.760   Time stamp of our file: 2014-07-31 14:59:04.000
+2021-01-10 00:45:39.760   Installing the file.
+2021-01-10 00:45:39.762   Successfully installed the file.
+2021-01-10 00:45:39.762   -- File entry --
+2021-01-10 00:45:39.762   Dest filename: D:\git\daw\plugins\presets\grace\Midi Maps\Placeholder.txt
+2021-01-10 00:45:39.763   Time stamp of our file: 2012-07-03 20:33:54.000
+2021-01-10 00:45:39.763   Installing the file.
+2021-01-10 00:45:39.763   Creating directory: D:\git\daw\plugins\presets\grace\Midi Maps
+2021-01-10 00:45:39.763   Successfully installed the file.
+2021-01-10 00:45:39.763   -- File entry --
+2021-01-10 00:45:39.764   Dest filename: D:\git\daw\plugins\presets\grace\Patches\Factory\Placeholder.txt
+2021-01-10 00:45:39.764   Time stamp of our file: 2014-07-09 23:25:42.000
+2021-01-10 00:45:39.764   Installing the file.
+2021-01-10 00:45:39.764   Creating directory: D:\git\daw\plugins\presets\grace\Patches
+2021-01-10 00:45:39.764   Creating directory: D:\git\daw\plugins\presets\grace\Patches\Factory
+2021-01-10 00:45:39.765   Successfully installed the file.
+2021-01-10 00:45:39.765   -- File entry --
+2021-01-10 00:45:39.765   Dest filename: D:\git\daw\plugins\presets\grace\Patches\User\Placeholder.txt
+2021-01-10 00:45:39.765   Time stamp of our file: 2014-07-09 23:25:42.000
+2021-01-10 00:45:39.765   Installing the file.
+2021-01-10 00:45:39.765   Creating directory: D:\git\daw\plugins\presets\grace\Patches\User
+2021-01-10 00:45:39.766   Successfully installed the file.
+2021-01-10 00:45:39.766   -- File entry --
+2021-01-10 00:45:39.766   Dest filename: D:\git\daw\plugins\presets\grace\Resources\LiberationSans-Bold.ttf
+2021-01-10 00:45:39.766   Time stamp of our file: 2009-06-22 14:36:12.000
+2021-01-10 00:45:39.766   Installing the file.
+2021-01-10 00:45:39.766   Creating directory: D:\git\daw\plugins\presets\grace\Resources
+2021-01-10 00:45:39.772   Successfully installed the file.
+2021-01-10 00:45:39.772   -- File entry --
+2021-01-10 00:45:39.772   Dest filename: D:\git\daw\plugins\presets\grace\Resources\LiberationSans-Regular.ttf
+2021-01-10 00:45:39.772   Time stamp of our file: 2009-06-22 14:36:12.000
+2021-01-10 00:45:39.772   Installing the file.
+2021-01-10 00:45:39.778   Successfully installed the file.
+2021-01-10 00:45:39.778   -- File entry --
+2021-01-10 00:45:39.778   Dest filename: C:\WINDOWS\system32\libiomp5md.dll
+2021-01-10 00:45:39.779   Time stamp of our file: 2008-11-06 05:29:52.000
+2021-01-10 00:45:39.779   Installing the file.
+2021-01-10 00:45:39.794   Successfully installed the file.
+2021-01-10 00:45:39.794   -- File entry --
+2021-01-10 00:45:39.794   Dest filename: C:\WINDOWS\system32\MtxVec.Fft.dll
+2021-01-10 00:45:39.795   Time stamp of our file: 2010-01-08 00:27:28.000
+2021-01-10 00:45:39.795   Installing the file.
+2021-01-10 00:45:40.004   Successfully installed the file.
+2021-01-10 00:45:40.004   -- File entry --
+2021-01-10 00:45:40.004   Dest filename: C:\WINDOWS\system32\MtxVec.Lapack4d.dll
+2021-01-10 00:45:40.004   Time stamp of our file: 2010-01-08 00:27:26.000
+2021-01-10 00:45:40.004   Installing the file.
+2021-01-10 00:45:40.314   Successfully installed the file.
+2021-01-10 00:45:40.314   -- File entry --
+2021-01-10 00:45:40.314   Dest filename: C:\WINDOWS\system32\MtxVec.Random.dll
+2021-01-10 00:45:40.315   Time stamp of our file: 2010-01-08 00:27:28.000
+2021-01-10 00:45:40.315   Installing the file.
+2021-01-10 00:45:40.435   Successfully installed the file.
+2021-01-10 00:45:40.436   -- File entry --
+2021-01-10 00:45:40.436   Dest filename: C:\WINDOWS\system32\MtxVec.Sparse4d.dll
+2021-01-10 00:45:40.436   Time stamp of our file: 2010-01-08 00:27:26.000
+2021-01-10 00:45:40.436   Installing the file.
+2021-01-10 00:45:40.495   Successfully installed the file.
+2021-01-10 00:45:40.495   -- File entry --
+2021-01-10 00:45:40.496   Dest filename: C:\WINDOWS\system32\MtxVec.Spld4.dll
+2021-01-10 00:45:40.496   Time stamp of our file: 2011-05-23 23:59:48.000
+2021-01-10 00:45:40.496   Installing the file.
+2021-01-10 00:45:40.577   Successfully installed the file.
+2021-01-10 00:45:40.577   -- File entry --
+2021-01-10 00:45:40.578   Dest filename: C:\WINDOWS\system32\MtxVec.Vml4d.dll
+2021-01-10 00:45:40.578   Time stamp of our file: 2010-01-06 22:33:18.000
+2021-01-10 00:45:40.578   Installing the file.
+2021-01-10 00:45:40.615   Successfully installed the file.
+2021-01-10 00:45:40.615   -- File entry --
+2021-01-10 00:45:40.615   Dest filename: C:\WINDOWS\system32\MtxVec.Vmld.dll
+2021-01-10 00:45:40.615   Time stamp of our file: 2010-01-08 00:27:28.000
+2021-01-10 00:45:40.615   Installing the file.
+2021-01-10 00:45:40.706   Successfully installed the file.
+2021-01-10 00:45:40.706   -- File entry --
+2021-01-10 00:45:40.706   Dest filename: C:\WINDOWS\system32\r8bsrc.dll
+2021-01-10 00:45:40.707   Time stamp of our file: 2013-10-09 12:18:54.000
+2021-01-10 00:45:40.707   Installing the file.
+2021-01-10 00:45:40.716   Successfully installed the file.
+2021-01-10 00:45:40.717   -- Icon entry --
+2021-01-10 00:45:40.717   Filename: D:\git\daw\plugins\generators\grace\Grace Data.lnk
+2021-01-10 00:45:40.744   -- Icon entry --
+2021-01-10 00:45:40.744   Filename: D:\git\daw\plugins\presets\grace\Uninstall Grace 64bit.exe.lnk
+2021-01-10 00:45:40.820   Installation process succeeded.
+2021-01-10 00:45:40.933   Need to restart Windows? No
