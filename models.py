@@ -5,17 +5,10 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Optional
+from typing import List, Optional, Dict
 
 import yaml
 from pydantic import BaseModel, Extra
-
-
-class SongMap(BaseModel):
-    pass
-
-    class Config:
-        extra = Extra.allow
 
 
 class Plugin(BaseModel):
@@ -63,7 +56,12 @@ class Playlist(BaseModel):
     name: str
     bpm: int
     patterns: Optional[List[Pattern]] = None
-    playlist_dict: Optional[SongMap] = None
+    playlist_dict: Optional[Dict[str, Pattern]] = None
+
+    def __init__(self, **kwargs):
+        super(Playlist, self).__init__(name=kwargs["name"], bpm=kwargs["bpm"])
+        self.patterns = []
+        self.playlist_dict = {}
 
 
 class Daw(BaseModel):
@@ -95,5 +93,10 @@ class Daw(BaseModel):
 
     def get_plugin_by_name(self, name: str) -> Plugin:
         for p in self.registered_plugins:
+            if p.name == name:
+                return p
+
+    def get_pattern_by_name(self, name: str) -> Playlist:
+        for p in self.playlist.patterns:
             if p.name == name:
                 return p

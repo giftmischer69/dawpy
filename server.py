@@ -13,6 +13,8 @@ from models import Daw, Pattern, Playlist, Plugin
 
 import uvicorn
 
+import yaml
+
 app = FastAPI(
     title='dawpy server',
     description='This is the daw server api',
@@ -26,15 +28,24 @@ app = FastAPI(
 daw: Daw = Daw()
 
 
-@app.get('/daw', response_model=Daw)
-def get_playlist() -> Daw:
+@app.get('/', response_model=Daw)
+def get_root() -> Daw:
     """
-    get current playlist
+    get current daw state
     """
-    logger.warn(f"getting daw: {daw.__dict__}")
+    logger.warn(daw.__dict__)
     return daw
 
 
+@app.get('/daw', response_model=Daw)
+def get_daw() -> Daw:
+    """
+    get current daw state
+    """
+    return daw
+
+
+# TODO
 @app.get('/daw/render', response_model=str)
 def render_playlist() -> str:
     """
@@ -43,40 +54,33 @@ def render_playlist() -> str:
     pass
 
 
-# todo save, load
-# todo much more :) works nicely
+@app.get('/playlist/load/{playlist_name}', response_model=None)
+def save_playlist(playlist_name: str) -> None:
+    """
+    save current daw state
+    """
+    file_name = f"data\\projects\\{playlist_name}.yaml"
+    with open(file_name, "r") as f:
+        daw.playlist = yaml.load(f.read())
 
 
-@app.post('/pattern', response_model=None)
-def create_pattern(body: Pattern) -> None:
+@app.get('/playlist/save', response_model=str)
+def save_playlist() -> str:
     """
-    create a new pattern
+    save current daw state
     """
-    pass
+    file_name = f"data\\projects\\{daw.playlist.name}.yaml"
+    with open(file_name, "w") as f:
+        f.write(yaml.dump(daw.playlist))
+    return file_name
 
 
-@app.get('/pattern/{pattern_name}', response_model=Pattern)
-def get_pattern_by_name(pattern_name: str) -> Pattern:
+@app.get('/playlist', response_model=Playlist)
+def get_current_playlist() -> Playlist:
     """
-    Get pattern by name
+    get current playlist
     """
-    pass
-
-
-@app.put('/pattern/{pattern_name}', response_model=Pattern)
-def update_pattern(pattern_name: str) -> Pattern:
-    """
-    update a pattern by name
-    """
-    pass
-
-
-@app.patch('/pattern/{pattern_name}', response_model=None)
-def configure_pattern(pattern_name: str) -> None:
-    """
-    Configure Pattern
-    """
-    pass
+    return daw.playlist
 
 
 @app.post('/playlist', response_model=None)
@@ -84,13 +88,51 @@ def create_playlist(body: Playlist) -> None:
     """
     create a new playlist
     """
-    pass
+    daw.playlist = body
 
 
 @app.post('/playlist/add/{index}/{pattern_name}', response_model=Pattern)
 def add_pattern_to_song_map(pattern_name: str, index: int) -> Pattern:
     """
     add pattern to songmap at index
+    """
+    p: Pattern = daw.get_pattern_by_name(pattern_name)
+    idx = str(index).ljust(3)
+    if daw.playlist.playlist_dict.dict.get(idx) is None:
+        daw.playlist.playlist_dict.dict[idx] = []
+
+    daw.playlist.playlist_dict.dict[idx].append[p]
+
+
+@app.post('/pattern', response_model=None)
+def create_pattern(body: Pattern) -> None:
+    """
+    create a new pattern
+    """
+    daw.playlist.patterns.append(body)
+
+
+@app.get('/pattern/{pattern_name}', response_model=Pattern)
+def get_pattern_by_name(pattern_name: str) -> Pattern:
+    """
+    Get pattern by name
+    """
+    return daw.get_pattern_by_name(pattern_name)
+
+
+@app.put('/pattern/{pattern_name}', response_model=Pattern)
+def update_pattern(pattern_name: str, body: Pattern) -> None:
+    """
+    update a pattern by name
+    """
+    daw.playlist.patterns = [body if body.name == p.name else p for p in daw.playlist.patterns]
+
+
+# TODO (check if needed)
+@app.patch('/pattern/{pattern_name}', response_model=None)
+def configure_pattern(pattern_name: str) -> None:
+    """
+    Configure Pattern
     """
     pass
 
@@ -121,6 +163,7 @@ def get_plugin_by_name(plugin_name: str) -> Plugin:
     return daw.get_plugin_by_name(plugin_name)
 
 
+# TODO
 @app.patch('/plugin/{plugin_name}', response_model=None)
 def configure_plugin(plugin_name: str) -> None:
     """
