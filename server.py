@@ -8,6 +8,7 @@ from typing import List
 
 from fastapi import FastAPI
 from fastapi.logger import logger
+from pydantic.main import BaseModel
 
 from models import Daw, Pattern, Playlist, Plugin
 
