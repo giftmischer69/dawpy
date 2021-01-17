@@ -29,19 +29,15 @@ app = FastAPI(
 daw: Daw = Daw()
 
 
-@app.get('/swagger.json')
-def get_root():
-    with open("swagger.json", "r") as f:
-        return f.read().object()
+# TODO: figure out a solution for the client. maybe editor.swagger.codegen with the current openapi json
 
-
-#@app.get('/', response_model=Daw)
-#def get_root() -> Daw:
-#    """
-#    get current daw state
-#    """
-#    logger.warn(daw.__dict__)
-#    return daw
+@app.get('/', response_model=Daw)
+def get_root() -> Daw:
+    """
+    get current daw state
+    """
+    logger.warn(daw.__dict__)
+    return daw
 
 
 @app.get('/daw', response_model=Daw)
