@@ -1,4 +1,9 @@
 # dawpy
+links:
+- https://stackoverflow.com/questions/16399355/refresh-a-local-web-page-using-python
+- https://jinja.palletsprojects.com/en/2.11.x/api/
+- https://jinja.palletsprojects.com/en/2.11.x/templates/
+
 todo: midi handling cli java tool with jfugue http://www.jfugue.org/examples.html
 TODO next: 
 - Static serve redered html template with jinja with http.server (View) with selenium refresh after each command

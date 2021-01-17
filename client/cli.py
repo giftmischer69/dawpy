@@ -1,3 +1,7 @@
+import multiprocessing
+import threading
+
+from selenium import webdriver
 import os
 import re
 import time
@@ -8,32 +12,58 @@ import typer
 from swagger_client.rest import ApiException
 from pprint import pprint
 
+from fastapi import FastAPI, Form, Request
+from fastapi.responses import HTMLResponse
 
-"""
-from jinja2 import Environment, PackageLoader, select_autoescape
-env = Environment(
-    loader=PackageLoader('yourapplication', 'templates'),
-    autoescape=select_autoescape(['html'])
-)
-"""
+from jinja2 import Template
 
-from selenium import webdriver
-import time
-import urllib.request
+import uvicorn
+import yaml
+
+app = FastAPI()
 
 
 class View:
     def __init__(self):
-        x = input("Enter the URL")
-        browser = webdriver.Chrome()
-        browser.get("http://" + x)
+        self.url = ""
+        # self.browser = webdriver.Chrome()
+        with open("view/template.html", "r") as f:
+            self.template = Template(f.read())
 
-        while True:
-            time.sleep(refreshrate)
-            driver.refresh()
+        # browser.refresh()
 
-        pass
-    pass
+    def generate_html_response(self):
+        html_content = self.template.render(name="melli")
+        return HTMLResponse(content=html_content, status_code=200)
+
+    def render(self) -> HTMLResponse:
+        # browser.get(url)
+        layout = self.get_css()
+        return HTMLResponse(content=self.template.render(layout=layout), status_code=200)
+
+    def get_css(self):
+        with open("view/layout.css", "r") as f:
+            return f.read()
+
+
+v = View()
+
+
+@app.get("/", response_class=HTMLResponse)
+def get_root():
+    return v.render()
+
+
+@app.post("/")
+def post_root(request: Request):
+    res = request.values()
+    print(res)
+    return res
+
+
+@app.get("/css")
+def get_css():
+    return v.get_css()
 
 
 class Command:
@@ -98,6 +128,7 @@ class Prompt:
             # Get Playlist
             api_response = self.api_instance.get_playlist_daw_get()
             pprint(api_response)
+            print(type(api_response))
         except ApiException as e:
             print("Exception when calling DefaultApi->getPlaylistDawGet: %s\n" % e)
 
@@ -200,9 +231,28 @@ class Prompt:
         self.list_commands_func()
 
 
-def main(debug: bool = False):
-    prompt = Prompt(debug=debug)
-    prompt.run()
+def serve(host: str = "http://127.0.0.1", port: int = 8001):
+    uvicorn.run(app,
+                # host=host, port=port,
+                # log_level="critical",
+                use_colors=False)
+
+
+def main(debug: bool = False, host: str = "http://127.0.0.1", port: int = 8001):
+    p = Prompt(debug=debug)
+
+    prompt = threading.Thread(target=p.run)
+    server = multiprocessing.Process(target=serve)
+
+    prompt.start()
+    server.start()
+    while prompt.is_alive():
+        time.sleep(1)
+        # print("sleeping")
+    print("woke")
+
+    server.terminate()
+    print("everything shut down")
 
 
 if __name__ == '__main__':

@@ -8,8 +8,7 @@ from typing import List
 
 from fastapi import FastAPI
 from fastapi.logger import logger
-from pydantic.main import BaseModel
-
+import typer
 from models import Daw, Pattern, Playlist, Plugin
 
 import uvicorn
@@ -175,5 +174,9 @@ def configure_plugin(plugin_name: str) -> None:
     pass
 
 
+def main(host: str = "http://127.0.0.1", port: int = 8001):
+    uvicorn.run(app, host=host, port=port, reload=True)
+
+
 if __name__ == '__main__':
-    uvicorn.run(app, reload=True)
+    typer.run(main)
