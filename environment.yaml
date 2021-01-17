@@ -9,4 +9,8 @@ dependencies:
       - typer
       - fastapi
       - uvicorn[standard]
-      - bravado
+      - urllib3
+      - setuptools
+      - python_dateutil
+      - six
+      - certifi

@@ -1,5 +1,27 @@
 # dawpy
 todo: midi handling cli java tool with jfugue http://www.jfugue.org/examples.html
+TODO next: 
+- Static serve redered html template with jinja with http.server (View) with selenium refresh after each command
+- html has a text input and output field for comand input and a minimally rendered view of the state of the daw 
+  - only interacts via commands
+  - <form action="/somewhere_else"> -> urlencoded command http.server accepts it
+- maybe change http.server to fastapi
+
+- start server, client with cli hostname and port
+- start server and client at the same time 
+- application.config https://hydra.cc/docs/intro/
+  
+- download server tools
+  - https://github.com/teragonaudio/MrsWatson/releases/download/0.9.8/MrsWatson-0.9.8.zip
+```
+import urllib.request
+
+print('Beginning file download with urllib2...')
+
+url = 'http://i3.ytimg.com/vi/J---aiyznGQ/mqdefault.jpg'
+urllib.request.urlretrieve(url, '/Users/scott/Downloads/cat.jpg')
+```
+
 ## user functions (TODO: Implement in daw/dawserver):
 - [X] create new project, name, bpm
 - [X] register plugin, plugin parameters

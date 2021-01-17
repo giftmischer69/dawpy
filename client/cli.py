@@ -1,9 +1,39 @@
 import os
 import re
+import time
 from tkinter import filedialog
 
-import requests
+import swagger_client
 import typer
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+
+"""
+from jinja2 import Environment, PackageLoader, select_autoescape
+env = Environment(
+    loader=PackageLoader('yourapplication', 'templates'),
+    autoescape=select_autoescape(['html'])
+)
+"""
+
+from selenium import webdriver
+import time
+import urllib.request
+
+
+class View:
+    def __init__(self):
+        x = input("Enter the URL")
+        browser = webdriver.Chrome()
+        browser.get("http://" + x)
+
+        while True:
+            time.sleep(refreshrate)
+            driver.refresh()
+
+        pass
+    pass
 
 
 class Command:
@@ -43,25 +73,37 @@ class Prompt:
     def __init__(self, debug: bool = False):
         Prompt.debug = debug
         self.running = True
+        # create an instance of the API class
+        self.api_instance = swagger_client.DefaultApi()
         self.commands = [
             Command("q", "exit the shell", self.exit_func),
             Command("exit", "exit the shell", self.exit_func),
             Command("lc", "list commands", self.list_commands_func),
             Command("list commands", "list commands", self.list_commands_func),
             Command("echo", "echo [string]", self.echo_func),
-            Command("create_playlist", "create a new project/playlist [name_no_spaces: str] [bpm: int]",
-                    self.create_new_playlist),
-            Command("cp", "create a new project/playlist [name_no_spaces: str] [bpm: int]",
-                    self.create_new_playlist)
+            # Command("create_playlist", "create a new project/playlist [name_no_spaces: str] [bpm: int]",
+            #        self.create_new_playlist),
+            # Command("cp", "create a new project/playlist [name_no_spaces: str] [bpm: int]",
+            #        self.create_new_playlist)
+            Command("d", "get daw", self.get_daw_func),
+            Command("daw", "get daw", self.get_daw_func),
 
             # Command("h", "print help", self.list_commands_func),
             # Command("help", "print help", self.list_commands_func),
 
         ]
 
+    def get_daw_func(self):
+        try:
+            # Get Playlist
+            api_response = self.api_instance.get_playlist_daw_get()
+            pprint(api_response)
+        except ApiException as e:
+            print("Exception when calling DefaultApi->getPlaylistDawGet: %s\n" % e)
+
     def run(self):
         self.welcome()
-        print()
+
         while self.running:
             inp: str = input(" : ")
             res = None
@@ -74,17 +116,17 @@ class Prompt:
                 print(e)
             Prompt.dbg_print(f"dbg: exit_func code: {res}")
 
-    def ask_file(self, dialoge: str, initialdir=None):
-        print(dialoge)
-        if not initialdir:
-            initialdir = os.getcwd()
-        return filedialog.askopenfilename(title=dialoge, initialdir=initialdir)
+    def ask_file(self, dialogue: str, initial_dir=None):
+        print(dialogue)
+        if not initial_dir:
+            initial_dir = os.getcwd()
+        return filedialog.askopenfilename(title=dialogue, initialdir=initial_dir)
 
-    def ask_folder(self, dialoge: str, initialdir=None):
-        print(dialoge)
-        if not initialdir:
-            initialdir = os.getcwd()
-        return filedialog.askdirectory(title=dialoge, initialdir=initialdir)
+    def ask_folder(self, dialogue: str, initial_dir=None):
+        print(dialogue)
+        if not initial_dir:
+            initial_dir = os.getcwd()
+        return filedialog.askdirectory(title=dialogue, initialdir=initial_dir)
 
     def ask_string(self, dialog: str):
         return input(f"{dialog}\n: ")
@@ -154,7 +196,7 @@ class Prompt:
         return return_code
 
     def welcome(self):
-        print("welcome")
+        print("welcome\n")
         self.list_commands_func()
 
 
