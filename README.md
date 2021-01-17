@@ -1,4 +1,5 @@
 # dawpy
+todo: midi handling cli java tool with jfugue http://www.jfugue.org/examples.html
 ## user functions (TODO: Implement in daw/dawserver):
 - [X] create new project, name, bpm
 - [X] register plugin, plugin parameters
