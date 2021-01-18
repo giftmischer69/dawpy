@@ -45,6 +45,9 @@ class DawConfig(BaseModel):
         self.plugin_path = plugin_path
         self.config_name = config_name
 
+    def get_dict(self):
+        return self.__dict__.items()
+
 
 class Pattern(BaseModel):
     name: Optional[str] = None
