@@ -5,7 +5,7 @@
 from __future__ import annotations
 
 from pathlib import Path
-from typing import List, Optional, Dict
+from typing import List, Optional, Dict, Any
 
 import yaml
 from pydantic import BaseModel, Extra
@@ -15,6 +15,12 @@ class Plugin(BaseModel):
     name: Optional[str] = None
     dll_path: Optional[str] = None
     preset_path: Optional[str] = None
+
+    def __init__(self, name: str, dll_path: str, preset_path: str, **data: Any):
+        super().__init__(**data)
+        self.name = name
+        self.dll_path = dll_path
+        self.preset_path = preset_path
 
 
 class DawConfig(BaseModel):
@@ -30,9 +36,10 @@ class DawConfig(BaseModel):
     projects_path: Optional[str] = None
     rendered_path: Optional[str] = None
 
-    def __init__(self, config_name, plugin_path, preset_path, daw_config_path,
-                 pattern_path, projects_path, mrs_watson_32bit_path, mrs_watson_64bit_path,
-                 nano_host_64bit_path, nano_host_32bit_path, rendered_path):
+    def __init__(self, config_name, plugin_path, preset_path, daw_config_path, pattern_path, projects_path,
+                 mrs_watson_32bit_path, mrs_watson_64bit_path, nano_host_64bit_path, nano_host_32bit_path,
+                 rendered_path, **data: Any):
+        super().__init__(**data)
         self.nano_host_32bit_path = nano_host_32bit_path
         self.nano_host_64bit_path = nano_host_64bit_path
         self.mrs_watson_64bit_path = mrs_watson_64bit_path
@@ -47,6 +54,23 @@ class DawConfig(BaseModel):
 
     def get_dict(self):
         return self.__dict__.items()
+
+    @classmethod
+    def hardcoded_default(cls) -> DawConfig:
+        config_name = "default"
+        daw_config_path = "data\\daw_config"
+        mrs_watson_64bit_path = "tools\\MrsWatson-0.9.8\\Windows\\mrswatson64.exe"
+        mrs_watson_32bit_path = "tools\\MrsWatson-0.9.8\\Windows\\mrswatson.exe"
+        nano_host_64bit_path = "tools\\Tone2 NanoHost v1.0.2\\NanoHost64bit.exe"
+        nano_host_32bit_path = "tools\\Tone2 NanoHost v1.0.2\\NanoHost32bit.exe"
+        pattern_path = "data\\patterns"
+        plugin_path = "plugins"
+        preset_path = "plugins\\presets"
+        projects_path = "data\\projects"
+        rendered_path = "data\\rendered"
+        return DawConfig(config_name, plugin_path, preset_path, daw_config_path, pattern_path, projects_path,
+                         mrs_watson_32bit_path, mrs_watson_64bit_path, nano_host_64bit_path, nano_host_32bit_path,
+                         rendered_path)
 
 
 class Pattern(BaseModel):
@@ -76,7 +100,7 @@ class Daw(BaseModel):
     def __init__(self, **kwargs):
         super().__init__()
         self.daw_config_folder = "data\\daw_config"
-        self.daw_config = self.load_daw_config()
+        self.daw_config = DawConfig.hardcoded_default()
         self.playlist = Playlist(name="default", bpm=90)
         self.registered_plugins = []
 

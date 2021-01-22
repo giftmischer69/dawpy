@@ -35,6 +35,11 @@ class View:
 
 
 class Prompt(Cmd):
+    # TODO: IMPLEMENT ONLY THIS! BUT RIGHT THIS TIME! THEN SERVER THEN ANGULAR FRONT
+    # Project: dawpy suite / dsuite
+    # Has: dawpy tools dtool / dawpy shell dshell dawpysh /
+    # THIS: dshell / dserver / d
+
     # handles cmd line interaction with the user and calls other api
     # has a view object
     # has a daw object
@@ -42,6 +47,7 @@ class Prompt(Cmd):
 
     def __init__(self):
         super().__init__()
+        self.prompt = "dshell"
         self.api_instance = swagger_client.DefaultApi()
         # self.daw = global_daw
         self.view_server = multiprocessing.Process(target=serve)
