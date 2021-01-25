@@ -1,103 +1,33 @@
-import multiprocessing
-from cmd import Cmd
+# here a typer application
+import typer
+from dawpy.shell import Shell
+from typing import Optional
 
-import swagger_client
-import uvicorn
-from jinja2 import Template
-from selenium import webdriver
-
-from models import Daw
-from fastapi import FastAPI
-from fastapi.responses import HTMLResponse
-from fastapi.logger import logger
+app = typer.Typer()
+shell_app = typer.Typer()
+app.add_typer(shell_app, name="shell")
 
 
-class View:
-    # Handles either
-    # - rendering & serving html file + selenium browser reload
-    # - server lifecycle with multiprocess.Process
-    # - Printing a ascii jinja template to the cmd line
-    # - renders a daw object
-    # - fastapi htmlresponse
-    @classmethod
-    def render_html(cls):
-        with open("view/template.html", "r") as f:
-            template = Template(f.read())
-        with open("view/layout.css", "r") as f:
-            layout = f.read()
-        global global_daw
-        daw_config = str(global_daw)
-        ret = template.render(
-            layout=layout,
-            daw_config=daw_config
-        )
-        return ret
+# TODO: HERE
+# add command with hidden = true for a sick hardcoded project maybe
 
 
-class Prompt(Cmd):
-    # TODO: IMPLEMENT ONLY THIS! BUT RIGHT THIS TIME! THEN SERVER THEN ANGULAR FRONT
-    # Project: dawpy suite / dsuite
-    # Has: dawpy tools dtool / dawpy shell dshell dawpysh /
-    # THIS: dshell / dserver / d
-
-    # handles cmd line interaction with the user and calls other api
-    # has a view object
-    # has a daw object
-    app = FastAPI()
-
-    def __init__(self):
-        super().__init__()
-        self.prompt = "dshell"
-        self.api_instance = swagger_client.DefaultApi()
-        # self.daw = global_daw
-        self.view_server = multiprocessing.Process(target=serve)
-        self.view_server.start()
-        self.view_url = "http://127.0.0.1:8000/"
-        options = webdriver.ChromeOptions()
-        options.add_experimental_option("excludeSwitches", ["enable-logging"])
-        self.browser = webdriver.Chrome(options=options)
-        self.browser.get(self.view_url)
-
-    @staticmethod
-    @app.get("/", response_class=HTMLResponse)
-    def get_root():
-        return View.render_html()
-
-    def do_greet(self, line):
-        print("hello")
-
-    def do_q(self, line):
-        return True
-
-    def postcmd(self, stop, line):
-        """Hook method executed just after a command dispatch is finished."""
-        global global_daw
-        global_daw = self.api_instance.get_playlist_daw_get()
-        self.browser.refresh()
-        return stop
-
-    def postloop(self) -> None:
-        print("postloop")
-        self.view_server.join()
-
-
-def serve():
-    uvicorn.run(Prompt.app,
-                # host=host,
-                # port=port,
-                log_level="critical",
-                use_colors=False)
-
-
-global_daw = swagger_client.DefaultApi().get_playlist_daw_get()
-
-
-def main():
-    p = Prompt()
-    p.cmdloop()
+@shell_app.callback(invoke_without_command=True)
+@shell_app.command()
+def shell(script_path: str = None):
+    """ start the dawpy shell """
+    dps = Shell()
+    if script_path:
+        with open(script_path, "r") as f:
+            commands = f.readlines()
+            dps.cmdqueue.extend(commands)
+    dps.cmdloop()
     print("shut down correctly")
 
 
-if __name__ == '__main__':
-    # can be started in true cmd mode or with html view
-    main()
+def cli():
+    app()
+
+
+if __name__ == "__main__":
+    cli()
