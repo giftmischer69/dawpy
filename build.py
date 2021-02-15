@@ -8,21 +8,20 @@ import subprocess
 import os
 import logging
 
-
-use_plugin("python.core")
-use_plugin("python.unittest")
-use_plugin("python.flake8")
-use_plugin("python.coverage")
-use_plugin("python.distutils")
+#todo!
+#use_plugin("python.core")
+#use_plugin("python.unittest")
+#use_plugin("python.flake8")
+#use_plugin("python.coverage")
+#use_plugin("python.distutils")
 
 
 name = "dawpy"
 default_task = [
     "clean",
-    "publish",
-    "generate_docs"
-    "oxidize",
-
+#    "publish",
+    "generate_docs",
+    "oxidize"
 ]
 
 
@@ -59,4 +58,4 @@ def oxidize(logger):
 @task
 def generate_docs(logger):
     logger.info("generating documentation")
-    subprocess.check_output("pycco -i -l python dawpy ")
+    subprocess.check_output("pycco -i -s -l python dawpy ")

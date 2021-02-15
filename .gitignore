@@ -2,6 +2,7 @@
 .pybuilder/
 docs/
 target/
+lib/
 
 # ------------------------------------
 # https://github.com/github/gitignore/blob/master/Python.gitignore

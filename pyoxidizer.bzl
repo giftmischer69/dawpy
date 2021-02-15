@@ -208,10 +208,10 @@ def make_exe(dist):
     # Read Python files from a local directory and add them to our embedded
     # context, taking just the resources belonging to the `foo` and `bar`
     # Python packages.
-    #exe.add_python_resources(exe.read_package_root(
-    #    path="/src/mypackage",
-    #    packages=["foo", "bar"],
-    #))
+    exe.add_python_resources(exe.read_package_root(
+        path=".\\dawpy\\",
+        packages=["dawpy"],
+    ))
 
     # Discover Python files from a virtualenv and add them to our embedded
     # context.
@@ -252,5 +252,5 @@ resolve_targets()
 # Everything below this is typically managed by PyOxidizer and doesn't need
 # to be updated by people.
 
-PYOXIDIZER_VERSION = "0.10.3"
+PYOXIDIZER_VERSION = "0.10.2"
 PYOXIDIZER_COMMIT = "UNKNOWN"
