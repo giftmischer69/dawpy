@@ -15,7 +15,7 @@ def version_callback(value: bool):
         raise typer.Exit()
 
 
-@shell_app.callback(invoke_without_command=True)
+# @shell_app.callback(invoke_without_command=True)
 @shell_app.command()
 def shell(
     script_path: str = typer.Option(None),
@@ -35,7 +35,8 @@ def shell(
 
 def cli():
     """ run the dawpy cli """
-    typer.run(shell)
+    print("hello world")
+    # typer.run(shell)
 
 
 def main():
