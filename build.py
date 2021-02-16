@@ -9,7 +9,7 @@ import os
 import logging
 
 #todo!
-#use_plugin("python.core")
+use_plugin("python.core")
 #use_plugin("python.unittest")
 #use_plugin("python.flake8")
 #use_plugin("python.coverage")
@@ -41,11 +41,9 @@ def clean(logger):
             shutil.rmtree(dir_name)
 
 
-@task
-def oxidize(logger):
-    logger.info("running oxidize")
+def run_checked(command):
     proc = subprocess.run(
-        "pyoxidizer build",
+        command,
         stdout=sys.stdout,
         shell=True,
     )
@@ -53,6 +51,14 @@ def oxidize(logger):
     logging.info(f"return_code: {return_code}")
     if return_code != 0:
         raise Exception
+    pass
+
+
+@task
+def oxidize(logger):
+    logger.info("running oxidize")
+    run_checked("pyoxidizer build")
+    run_checked("build\\x86_64-pc-windows-msvc\\debug\\install\\dawpy.exe --help")
 
 
 @task

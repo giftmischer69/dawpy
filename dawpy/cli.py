@@ -1,7 +1,10 @@
+from pydantic.typing import NoneType
+
 from dawpy._version import __version__
-import typer
+j
 from dawpy.shell import Shell
 from typing import Optional
+import sys
 
 app = typer.Typer()
 shell_app = typer.Typer()
@@ -13,15 +16,18 @@ def version_callback(value: bool):
     if value:
         typer.echo(f"dawpy version: {__version__}")
         raise typer.Exit()
+# todo change typer to argparse
+# https://docs.python.org/3/library/argparse.html
+# wopr
+# https://github.com/willmcgugan/rich
 
-
-# @shell_app.callback(invoke_without_command=True)
+@shell_app.callback(invoke_without_command=True)
 @shell_app.command()
 def shell(
-    script_path: str = typer.Option(None),
-    version: Optional[bool] = typer.Option(
-        None, "--version", callback=version_callback
-    ),
+        script_path: str = typer.Option(None),
+        version: Optional[bool] = typer.Option(
+            None, "--version", callback=version_callback
+        ),
 ):
     """ start the dawpy shell """
     dps = Shell()
@@ -30,13 +36,14 @@ def shell(
             commands = f.readlines()
             dps.cmdqueue.extend(commands)
     dps.cmdloop()
-    print("shut down correctly")
+    typer.echo("shut down correctly")
 
 
 def cli():
     """ run the dawpy cli """
-    print("hello world")
-    # typer.run(shell)
+    sys.argv = [x for x in sys.argv if x is not None]
+    typer.echo(sys.argv)
+    typer.run(shell)
 
 
 def main():

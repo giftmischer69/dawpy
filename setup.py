@@ -10,6 +10,6 @@ setup(
     license="MIT",
     packages=["dawpy"],
     zip_safe=False,
-    install_requires=["typer", "pickledb", "pydantic"],
+    install_requires=["typer", "pickledb", "pydantic", "pycco"],
     entry_points={'console_scripts': ['dawpy = dawpy.__main__:main'], },
 )
