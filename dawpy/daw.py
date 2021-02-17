@@ -12,8 +12,12 @@ class Daw(BaseModel):
         super().__init__(**data)
         self.db = pickledb.load("test.db.json", True)
 
-    def json(self, *, include: Union['AbstractSetIntStr', 'MappingIntStrAny'] = None,
-             exclude: Union['AbstractSetIntStr', 'MappingIntStrAny'] = None, by_alias: bool = False,
-             skip_defaults: bool = None, exclude_unset: bool = False, exclude_defaults: bool = False,
-             exclude_none: bool = False, encoder: Optional[Callable[[Any], Any]] = None, **dumps_kwargs: Any) -> str:
+    def json(self, *args, **kwargs) -> str:
         return json.dumps(str(self.db))
+
+
+""" 
+Pattern: 
+        StaccatoProducer(Midi: Produces a midi with jfugue) 
+        + WavProducer(Plugin: Produces Wav with a midi (dll+fxp)) 
+"""

@@ -3,6 +3,9 @@ import json
 from dawpy._version import __version__
 from dawpy.daw import Daw
 
+# https://github.com/yaronn/wopr
+# https://github.com/willmcgugan/rich
+
 
 class View:
     @classmethod

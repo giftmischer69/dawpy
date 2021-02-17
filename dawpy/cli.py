@@ -1,34 +1,12 @@
 from pydantic.typing import NoneType
-
 from dawpy._version import __version__
-j
 from dawpy.shell import Shell
 from typing import Optional
 import sys
-
-app = typer.Typer()
-shell_app = typer.Typer()
-app.add_typer(shell_app, name="shell")
+import argparse
 
 
-def version_callback(value: bool):
-    """ displays the current version """
-    if value:
-        typer.echo(f"dawpy version: {__version__}")
-        raise typer.Exit()
-# todo change typer to argparse
-# https://docs.python.org/3/library/argparse.html
-# wopr
-# https://github.com/willmcgugan/rich
-
-@shell_app.callback(invoke_without_command=True)
-@shell_app.command()
-def shell(
-        script_path: str = typer.Option(None),
-        version: Optional[bool] = typer.Option(
-            None, "--version", callback=version_callback
-        ),
-):
+def shell(script_path: str = ""):
     """ start the dawpy shell """
     dps = Shell()
     if script_path:
@@ -36,14 +14,43 @@ def shell(
             commands = f.readlines()
             dps.cmdqueue.extend(commands)
     dps.cmdloop()
-    typer.echo("shut down correctly")
+    print("shut down correctly")
 
 
 def cli():
     """ run the dawpy cli """
-    sys.argv = [x for x in sys.argv if x is not None]
-    typer.echo(sys.argv)
-    typer.run(shell)
+    sys.argv = [x for x in sys.argv if x is not None and ".py" not in x]
+    parser = argparse.ArgumentParser(
+        prog="dawpy", description="Python based Digital Audio Workstation"
+    )
+    parser.add_argument(
+        "-v",
+        "--version",
+        action="version",
+        version="dawpy " + __version__,
+        help="Show the dawpy version number and exit.",
+    )
+
+    subparsers = parser.add_subparsers(help="run a dawpy subcommand")
+
+    shell_parser = subparsers.add_parser(
+        "shell", help="Start the REPL DawpyShell (dsh)"
+    )
+    shell_parser.add_argument(
+        "-s", "--script", dest="shell_script", help="run a dawpy-shell script (.dsh)"
+    )
+    shell_parser.add_argument(
+        "-c", "--command", dest="shell_command", help="run a dawpy-shell command"
+    )
+
+    shell_parser.set_defaults(shell=True)
+    args = parser.parse_args(sys.argv)
+    if len(vars(args)) == 0:
+        shell()
+    elif args.shell:
+        shell(args.shell_script)
+    else:
+        print("ERROR NO ARGS")
 
 
 def main():

@@ -9,17 +9,20 @@ import os
 import logging
 
 #todo!
-use_plugin("python.core")
+#use_plugin("python.core")
 #use_plugin("python.unittest")
 #use_plugin("python.flake8")
 #use_plugin("python.coverage")
 #use_plugin("python.distutils")
 
+# todo pybuilder should build bdist and sdist, wheel
+# todo tests
+# todo pybuilder black formatter plugin
 
 name = "dawpy"
 default_task = [
     "clean",
-#    "publish",
+    "publish",
     "generate_docs",
     "oxidize"
 ]
@@ -33,7 +36,7 @@ def set_properties(project):
 
 @task
 def clean(logger):
-    dirs_to_clean = ["build", ".pybuilder", "target", "docs"]
+    dirs_to_clean = ["build", ".pybuilder", "target", "docs", "dawpy.egg-info"]
     for dir_str in dirs_to_clean:
         dir_name = f"./{dir_str}/"
         logger.info(f"removing build directory {dir_name}")

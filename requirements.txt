@@ -1,4 +1,3 @@
-typer
 pickledb
 pydantic
 pycco
