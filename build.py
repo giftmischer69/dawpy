@@ -1,5 +1,3 @@
-from pybuilder.core import use_plugin
-
 #   -*- coding: utf-8 -*-
 from pybuilder.core import use_plugin, init, task
 import shutil
@@ -8,23 +6,23 @@ import subprocess
 import os
 import logging
 
-#todo!
-#use_plugin("python.core")
-#use_plugin("python.unittest")
-#use_plugin("python.flake8")
-#use_plugin("python.coverage")
-#use_plugin("python.distutils")
+use_plugin("python.core")
+use_plugin("python.unittest")
+use_plugin("python.flake8")
+use_plugin("python.coverage")
 
-# todo pybuilder should build bdist and sdist, wheel
 # todo tests
 # todo pybuilder black formatter plugin
 
 name = "dawpy"
 default_task = [
     "clean",
-    "publish",
+    "blacken",
+    "run_unit_tests",
+    "analyze",
+    "setup_py_sdist_bdist_wheel",
     "generate_docs",
-    "oxidize"
+    "oxidize",
 ]
 
 
@@ -32,11 +30,23 @@ default_task = [
 def set_properties(project):
     logging.basicConfig(level=logging.INFO)
     project.set_property("coverage_break_build", False)
+    project.depends_on_requirements("requirements.txt")
+    project.set_property("dir_source_main_python", ".")
+    project.set_property(
+        "flake8_exclude_patterns", "build,.pybuilder,target,dist,.bzl,.toml,.md"
+    )
+    project.set_property("flake8_verbose_output", True)
 
 
 @task
 def clean(logger):
-    dirs_to_clean = ["build", ".pybuilder", "target", "docs", "dawpy.egg-info"]
+    dirs_to_clean = [
+        "build",
+        "target",
+        "docs",
+        "dawpy.egg-info",
+        "dist"
+    ]
     for dir_str in dirs_to_clean:
         dir_name = f"./{dir_str}/"
         logger.info(f"removing build directory {dir_name}")
@@ -58,13 +68,25 @@ def run_checked(command):
 
 
 @task
-def oxidize(logger):
-    logger.info("running oxidize")
-    run_checked("pyoxidizer build")
-    run_checked("build\\x86_64-pc-windows-msvc\\debug\\install\\dawpy.exe --help")
+def blacken(logger):
+    logger.info("running the black formatter on directory .")
+    run_checked("black .")
+
+
+@task
+def setup_py_sdist_bdist_wheel(logger):
+    logger.info("running: python setup.py sdist bdist_wheel")
+    run_checked("python setup.py sdist bdist_wheel")
 
 
 @task
 def generate_docs(logger):
     logger.info("generating documentation")
     subprocess.check_output("pycco -i -s -l python dawpy ")
+
+
+@task
+def oxidize(logger):
+    logger.info("running oxidize")
+    run_checked("pyoxidizer build")
+    run_checked("build\\x86_64-pc-windows-msvc\\debug\\install\\dawpy.exe --help")
