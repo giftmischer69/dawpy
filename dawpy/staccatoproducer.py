@@ -1,7 +1,9 @@
 import logging
+import subprocess
+import sys
 
 
-class Staccatoproducer:
+class StaccatoProducer:
     def __init__(
         self,
         root_notes: str = "C | CD | CDA | CDAF",
@@ -15,7 +17,8 @@ class Staccatoproducer:
         self.tempo = tempo
 
     def get_staccato_header(self):
-        return "TODO HEADER LUL "
+        header = f"T{self.tempo} V0 I[Piano] "
+        return header
 
     def merge_root_rhythm(self, root: str, rhythm: str) -> str:
         logging.info(f"root: {root} | rhythm: {rhythm}")
@@ -46,11 +49,26 @@ class Staccatoproducer:
         return header + pattern
 
 
+def run_checked(command):
+    proc = subprocess.run(
+        command,
+        stdout=sys.stdout,
+        shell=True,
+    )
+    return_code = proc.returncode
+    logging.info(f"return_code: {return_code}")
+    if return_code != 0:
+        raise Exception
+
+
 def main():
     logging.basicConfig(level=logging.INFO)
-    s = Staccatoproducer()
+    s = StaccatoProducer()
     pt = s.produce_staccato()
     print(f"pattern: {pt}")
+    command = f'jython dawpy\\jython_jfugue_cli.jy convert "{pt}" test.midi'
+    print(command)
+    run_checked(command)
 
 
 if __name__ == "__main__":

@@ -7,6 +7,9 @@ once the first good prototype is working (start of phase 3 - alpha) i will direc
 debian-based linux, too.
 
 TODO: Screenshot
+TODO: Github Pages Host Docs
+TODO: CI-Builds!
+Someday: deploy web-service on heroku (free :smiley:)
 
 ## installation
 

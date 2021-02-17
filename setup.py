@@ -3,6 +3,7 @@ from setuptools import setup
 dependencies = [x.strip() for x in open("requirements.txt", "r").readlines()]
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
+
 setup(
     name="dawpy",
     version="0.1.0",

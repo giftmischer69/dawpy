@@ -1,7 +1,5 @@
-from pydantic.typing import NoneType
 from dawpy._version import __version__
 from dawpy.shell import Shell
-from typing import Optional
 import sys
 import argparse
 

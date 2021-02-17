@@ -12,7 +12,6 @@ use_plugin("python.flake8")
 use_plugin("python.coverage")
 
 # todo tests
-# todo pybuilder black formatter plugin
 
 name = "dawpy"
 default_task = [
@@ -33,7 +32,8 @@ def set_properties(project):
     project.depends_on_requirements("requirements.txt")
     project.set_property("dir_source_main_python", ".")
     project.set_property(
-        "flake8_exclude_patterns", "build,.pybuilder,target,dist,.bzl,.toml,.md"
+        "flake8_exclude_patterns",
+        "build,.pybuilder,target,dist,.bzl,.toml,.md,jython,.jython_cache",
     )
     project.set_property("flake8_verbose_output", True)
 
@@ -45,7 +45,8 @@ def clean(logger):
         "target",
         "docs",
         "dawpy.egg-info",
-        "dist"
+        "dist",
+        ".jython_cache",
     ]
     for dir_str in dirs_to_clean:
         dir_name = f"./{dir_str}/"
@@ -64,7 +65,6 @@ def run_checked(command):
     logging.info(f"return_code: {return_code}")
     if return_code != 0:
         raise Exception
-    pass
 
 
 @task
