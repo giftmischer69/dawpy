@@ -2,6 +2,12 @@
 
 A python based digital audio workstation
 
+
+
+http://www.vstplanet.com/Instruments/
+
+
+
 unfortunately, only windows is currently supported.
 once the first good prototype is working (start of phase 3 - alpha) i will direct my attention towards supporting 
 debian-based linux, too.

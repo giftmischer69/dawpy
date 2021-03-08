@@ -1,4 +1,4 @@
-from dawpy import cli
+from dawpy.cli import cli
 
 
 def main():

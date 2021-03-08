@@ -1,0 +1,5 @@
+[Color Scheme / RGB Colors - 000 to 255 & FONT TYPE]
+
+OverSampler:                      128 064 064 4
+Scan:                             255 255 000 5
+Midi:                             119 043 026 4

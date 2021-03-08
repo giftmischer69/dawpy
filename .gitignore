@@ -4,6 +4,8 @@ docs/
 target/
 lib/
 .jython_cache/
+data/
+plugins/
 
 # ------------------------------------
 # https://github.com/github/gitignore/blob/master/Python.gitignore

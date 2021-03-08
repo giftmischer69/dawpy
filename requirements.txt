@@ -1,4 +1,1 @@
-pickledb
-pydantic
-pycco
-black
+sox
