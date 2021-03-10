@@ -11,6 +11,11 @@ import tempfile
 import pickle
 import yaml
 
+from melodia.core import Track
+from melodia.music import chord
+from melodia.io import midi
+
+
 """
 # daw.py - core functionality of dawpy
 
@@ -46,7 +51,23 @@ class VstPlugin:
         self.is_32bit: bool = is_32bit
 
 
-class Pattern:
+class ChordMidiProducer:
+
+
+    def produce_midi(self):
+        track = Track(signature=(4, 4))
+
+        track.add(chord.maj('C3', (1, 1)))
+        track.add(chord.maj('D3', (1, 1)))
+        track.add(chord.min('A3', (1, 1)))
+        track.add(chord.maj7('G3', (1, 1)))
+        path = Path("./data/temp/chords.mid").absolute()
+        with open(path, "wb") as f:
+            midi.dump(track, f)
+        return path
+
+
+class MidiPattern:
     """ ## MidiPattern
     a MidiPattern can render a bar from a
     - midi file & plugin
@@ -59,12 +80,7 @@ class Pattern:
         self.plugin = plugin
 
 
-class MidiTypes(Enum):
-    CHORD = 0
-    BASS = 1
-    SNARE = 2
-    KICK = 3
-    HI_HAT = 4
+
 
 
 class Project:
@@ -72,14 +88,13 @@ class Project:
         self.name = name
         self.bpm = bpm
         self.key = key
-        self.playlist: List[Tuple[int, Pattern]] = []
+        self.playlist: List[Tuple[int, MidiPattern]] = []
 
-    def add_midi_pattern(self, entry: Tuple[int, Pattern]):
+    def add_midi_pattern(self, entry: Tuple[int, MidiPattern]):
         self.playlist.append(entry)
 
 
 class Daw:
-    # TODO pickle -> yaml
     # TODO midi generation (mingus)
 
     mrs_watson_32 = Path("./plugins/tools/MrsWatson-0.9.8/Windows/mrswatson.exe").absolute()
@@ -97,7 +112,7 @@ class Daw:
         # choose/configure instrument, choose/configure midi for pattern
         # render patterns, render together
 
-        pattern = Pattern(name, bpm, midi_file, plugin)
+        pattern = MidiPattern(name, bpm, midi_file, plugin)
         self.project.add_midi_pattern((bar_offset, pattern))
 
     def configure_plugin(self, plugin) -> None:

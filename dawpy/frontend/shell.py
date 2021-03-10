@@ -3,7 +3,7 @@ from pathlib import Path
 from tkinter import filedialog
 
 from dawpy._version import __version__
-from dawpy.core.daw import Daw, VstPlugin, MidiTypes, Project
+from dawpy.core.daw import Daw, VstPlugin, Project, ChordMidiProducer
 import os
 import os.path
 import yaml
@@ -60,8 +60,7 @@ class Shell(Cmd):
         bpm = self.daw.project.bpm
 
         if self.ask_bool("generate midi file?"):
-            type = self.ask_indexed("choose midi type", MidiTypes.enum_members)
-            midi_file = self.daw.generate_midi_file(type)
+            midi_file = ChordMidiProducer().produce_midi()
         else:
             midi_file = self.ask_file_indexed("choose midi file", None, ".mid")
 
@@ -99,6 +98,22 @@ class Shell(Cmd):
             self.daw.load_project(project_name)
         else:
             self.daw.load_project(line)
+
+    def do_svpkl(self, line):
+        """ save current project to pickle format """
+        self.daw.save_project_pickle()
+
+    def do_ldpkl(self, line):
+        """ load project from pickle format
+        Usage: ldpkl or ldpkl [project_name]
+        """
+        if not line or not line.strip():
+            path = self.ask_file_indexed("choose project", None, ".pkl")
+            project_name = path.name.replace(".pkl", "")
+            print(f"project_name: {project_name}")
+            self.daw.load_project_pickle(project_name)
+        else:
+            self.daw.load_project_pickle(line)
 
     def do_sq(self, line):
         """ save, then quit """
