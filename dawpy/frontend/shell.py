@@ -117,7 +117,7 @@ class Shell(Cmd):
 
     def do_sq(self, line):
         """ save, then quit """
-        self.do_svproj(line)
+        self.do_sv(line)
         self.do_q(line)
 
     def do_np(self, line):

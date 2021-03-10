@@ -7,6 +7,12 @@ lib/
 data/
 plugins/
 
+.wav
+.mid
+.midi
+.dll
+.fxp
+
 # ------------------------------------
 # https://github.com/github/gitignore/blob/master/Python.gitignore
 # Byte-compiled / optimized / DLL files

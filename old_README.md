@@ -2,39 +2,15 @@
 
 A python based digital audio workstation
 
-## roadmap
-
-- [ ] implementing core package
-- [ ] implementing cli package
-- [ ] implementing frontend package
-  - [ ] implementing frontend/shell.py
-  - [ ] implementing frontend/vle.py  # vim like editor
-  - [ ] implementing frontend/gui.py  # (preferrably web based fat clients)
-
-- [ ] adding pybuilder
-  - [ ] documentation (auto generated and hosted with gh-pages (must be lightweight))
-  - [ ] black code format
-  - [ ] python packaging
-  - [ ] conda build packaging
-  - [ ] pyoxidizer / freezer -> exe to distribute
-  - [ ] tests
-
-## packages
-
-### core package
-- daw.py - core functionality of dawpy
 
 
+http://www.vstplanet.com/Instruments/
 
-## adding a plugin
-
-- download a vst, e.g. from http://www.vstplanet.com/Instruments/
-
--
+ren *.txt "???????????????????????????? 1.1.txt"
 
 
 unfortunately, only windows is currently supported.
-once the first good prototype is working (start of phase 3 - alpha) i will direct my attention towards supporting
+once the first good prototype is working (start of phase 3 - alpha) i will direct my attention towards supporting 
 debian-based linux, too.
 
 TODO: Screenshot
@@ -55,7 +31,7 @@ TODO: pyoxidizer output zipped as release
 
 - `dawpy --help`  
 
-## building
+## building 
 
 clone this repository
 - `git clone https://github.com/giftmischer69/dawpy`
@@ -65,8 +41,8 @@ clone this repository
 
 ### explanation
 
-this project uses
-- pybuilder to manage the project
+this project uses 
+- pybuilder to manage the project 
 
 - pyoxidizer to build an exe-file for easy distribution
 to non-developer users
@@ -79,7 +55,7 @@ install build dependencies
 
 - *the following dependencies are written in [PURL](https://github.com/package-url/purl-spec) format*
   - pkg:conda/python@3.8
-  - pkg:conda/pip
+  - pkg:conda/pip 
   - pkg:conda/rust@1.47.0
   - pkg:pypi/pickledb
   - pkg:pypi/pydantic

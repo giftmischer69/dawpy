@@ -37,9 +37,6 @@ def cli():
     shell_parser.add_argument(
         "-s", "--script", dest="shell_script", help="run a dawpy-shell script (.dsh)"
     )
-    shell_parser.add_argument(
-        "-c", "--command", dest="shell_command", help="run a dawpy-shell command"
-    )
 
     shell_parser.set_defaults(shell=True)
     args = parser.parse_args(sys.argv)

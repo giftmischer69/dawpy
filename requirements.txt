@@ -1,3 +1,4 @@
 sox
 pyyaml
 melodia
+windows-curses
