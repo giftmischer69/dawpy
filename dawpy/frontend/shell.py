@@ -3,7 +3,8 @@ from pathlib import Path
 from tkinter import filedialog
 
 from dawpy._version import __version__
-from dawpy.core.daw import Daw, VstPlugin, Project, ChordMidiProducer
+from dawpy.core.daw import Daw, VstPlugin, Project, ChordMidiProducer, SnareMidiProducer, BassMidiProducer, \
+    KickMidiProducer
 import os
 import os.path
 import yaml
@@ -60,19 +61,31 @@ class Shell(Cmd):
         bpm = self.daw.project.bpm
 
         if self.ask_bool("generate midi file?"):
-            midi_file = ChordMidiProducer().produce_midi()
+            # types: snare kick chord bass (hihat)
+            types = [(x, y) for x, y in
+                     enumerate([SnareMidiProducer, KickMidiProducer, ChordMidiProducer, BassMidiProducer])]
+            # type(x).__name__
+            selection = self.ask_indexed("select the producer to use", types)
+            m_producer = selection[1]
+            midi_file = m_producer.produce_midi()
         else:
             midi_file = self.ask_file_indexed("choose midi file", None, ".mid")
 
-        dll = self.ask_file_indexed("choose plugin dll", None, ".dll")
-        fxp = self.ask_file_indexed("choose plugin fxp", None, ".fxp")
-        is_32bit = self.ask_bool("is this plugin 32bit?")
+        if len(self.daw.project.registered_plugins) == 0 or self.ask_bool("register new plugin?"):
+            # 0xDEFACED
+            name = self.ask_string("enter plugin name")
+            dll = self.ask_file_indexed("choose plugin dll", None, ".dll")
+            fxp = self.ask_file_indexed("choose plugin fxp", dll.parent, ".fxp")
+            is_32bit = self.ask_bool("is this plugin 32bit?")
 
-        p = VstPlugin(dll, fxp, is_32bit)
+            p = VstPlugin(name, dll, is_32bit, dll.parent, fxp)
+        else:
+            p = self.ask_indexed("choose registered plugin",
+                                 [(i, x) for i, x in enumerate(self.daw.project.registered_plugins)])
 
         bar_offset = self.ask_int("enter bar offset")
-
-        self.daw.create_pattern(name, bpm, midi_file, p, bar_offset)
+        # key = self.ask_string("enter key (e.g. C)")
+        self.daw.create_pattern(name, bpm, self.daw.project.key, midi_file, p, bar_offset)
 
     def do_rd(self, line):
         """ render current project
@@ -98,22 +111,6 @@ class Shell(Cmd):
             self.daw.load_project(project_name)
         else:
             self.daw.load_project(line)
-
-    def do_svpkl(self, line):
-        """ save current project to pickle format """
-        self.daw.save_project_pickle()
-
-    def do_ldpkl(self, line):
-        """ load project from pickle format
-        Usage: ldpkl or ldpkl [project_name]
-        """
-        if not line or not line.strip():
-            path = self.ask_file_indexed("choose project", None, ".pkl")
-            project_name = path.name.replace(".pkl", "")
-            print(f"project_name: {project_name}")
-            self.daw.load_project_pickle(project_name)
-        else:
-            self.daw.load_project_pickle(line)
 
     def do_sq(self, line):
         """ save, then quit """
@@ -168,5 +165,5 @@ class Shell(Cmd):
         print(dialog)
         for i, v in enum_members:
             print(f"{i}:\t {v}")
-        choice = self.ask_int("choose one file")
+        choice = self.ask_int("choose one")
         return enum_members[choice]

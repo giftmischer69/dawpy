@@ -5,6 +5,9 @@ from pathlib import Path
 from typing import List, Tuple
 
 import yaml
+from melodia.core import Track, Tone, Note
+from melodia.music import chord
+from melodia.io import midi
 
 
 def run_checked(command):
@@ -17,12 +20,30 @@ def run_checked(command):
 
 class MidiProducer:
     @classmethod
-    def generate_midi(cls, key: str = "C") -> Path:
+    def produce_midi(cls, key: str = "C") -> Path:
         ...
 
 
 class SnareMidiProducer(MidiProducer):
-    ...
+    @classmethod
+    def produce_midi(cls, key: str = "C") -> Path:
+        logging.info("generating snare midi")
+        track = Track(signature=(4, 4))
+        tone = Tone.from_notation('C5')  # c4, d3
+
+        note_q_rest = Note(tone, (1, 4), 0)
+        note_q_hit = Note(tone, (1, 4), 1)
+
+        track.add(note_q_rest)
+        track.add(note_q_hit)
+        track.add(note_q_rest)
+        track.add(note_q_hit)
+
+        Path("./data/generated/").mkdir(parents=True, exist_ok=True)
+        p = Path("./data/generated/snare.mid").absolute()
+        with open(p, 'wb') as f:
+            midi.dump(track, f)
+        return p
 
 
 class KickMidiProducer(MidiProducer):
@@ -72,6 +93,7 @@ class Project:
         self.bpm = bpm
         self.key = key
         self.playlist: List[Tuple[int, Pattern]] = []
+        self.registered_plugins: List[VstPlugin] = []
 
     def add_midi_pattern(self, entry: Tuple[int, Pattern]):
         self.playlist.append(entry)
@@ -89,16 +111,20 @@ class Daw:
         # - then prepend  with offset silence
         # - then render to temp file
         # - then merge temp files
+        
+
         ...
 
-    def create_pattern(self, name: str, bpm: int, midi_file: Path, plugin: VstPlugin, bar_offset: int):
-        pattern = Pattern(name, bpm, midi_file, plugin)
+
+    def create_pattern(self, name: str, bpm: float, key: str, midi_file: Path, plugin: VstPlugin, bar_offset: int):
+        pattern = Pattern(name, bpm, key, plugin, midi_file)
         self.project.add_midi_pattern((bar_offset, pattern))
 
     def delete_pattern(self, index: int):
         del self.project.playlist[index]
 
     def save_project(self):
+        Path("./data/projects/").mkdir(parents=True, exist_ok=True)
         path = Path(f"./data/projects/{self.project.name}.yaml").absolute()
         with open(path, "w") as p:
             yaml.dump(self.project, p, Dumper=yaml.Dumper)
