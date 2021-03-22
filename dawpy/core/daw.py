@@ -11,7 +11,11 @@ from melodia.io import midi
 
 
 def run_checked(command):
-    proc = subprocess.run(command, stdout=sys.stdout, shell=True, )
+    proc = subprocess.run(
+        command,
+        stdout=sys.stdout,
+        shell=True,
+    )
     return_code = proc.returncode
     logging.info(f"return_code: {return_code}")
     if return_code != 0:
@@ -29,7 +33,7 @@ class SnareMidiProducer(MidiProducer):
     def produce_midi(cls, key: str = "C") -> Path:
         logging.info("generating snare midi")
         track = Track(signature=(4, 4))
-        tone = Tone.from_notation('C5')  # c4, d3
+        tone = Tone.from_notation("C5")  # c4, d3
 
         note_q_rest = Note(tone, (1, 4), 0)
         note_q_hit = Note(tone, (1, 4), 1)
@@ -41,7 +45,7 @@ class SnareMidiProducer(MidiProducer):
 
         Path("./data/generated/").mkdir(parents=True, exist_ok=True)
         p = Path("./data/generated/snare.mid").absolute()
-        with open(p, 'wb') as f:
+        with open(p, "wb") as f:
             midi.dump(track, f)
         return p
 
@@ -59,7 +63,14 @@ class BassMidiProducer(MidiProducer):
 
 
 class VstPlugin:
-    def __init__(self, name: str, dll: Path, is_32bit: bool, preset_folder: Path, selected_fxp: Path):
+    def __init__(
+        self,
+        name: str,
+        dll: Path,
+        is_32bit: bool,
+        preset_folder: Path,
+        selected_fxp: Path,
+    ):
         self.name = name
         self.dll = dll
         self.is_32bit = is_32bit
@@ -68,8 +79,12 @@ class VstPlugin:
 
 
 class VstPluginRenderer:
-    mrs_watson_32 = Path("./plugins/tools/MrsWatson-0.9.8/Windows/mrswatson.exe").absolute()
-    mrs_watson_64 = Path("./plugins/tools/MrsWatson-0.9.8/Windows/mrswatson64.exe").absolute()
+    mrs_watson_32 = Path(
+        "./plugins/tools/MrsWatson-0.9.8/Windows/mrswatson.exe"
+    ).absolute()
+    mrs_watson_64 = Path(
+        "./plugins/tools/MrsWatson-0.9.8/Windows/mrswatson64.exe"
+    ).absolute()
 
     @classmethod
     def render(cls, vstplugin, midi_file, out_file):
@@ -77,13 +92,13 @@ class VstPluginRenderer:
 
 
 class Pattern:
-    def __init__(self, name: str, bpm: float, key: str, plugin: VstPlugin, midi_file: Path = None):
+    def __init__(
+        self, name: str, bpm: float, key: str, plugin: VstPlugin, midi_file: Path
+    ):
         self.name = name
         self.bpm = bpm
         self.key = key
         self.plugin = plugin
-        if not midi_file:
-            midi_file = MidiProducer.generate_midi(key)
         self.midi_file = midi_file
 
 
@@ -100,8 +115,13 @@ class Project:
 
 
 class Daw:
-    def __init__(self, user_name: str = "anon", project_name: str = "default", project_bpm: int = 90,
-                 project_key: str = "C"):
+    def __init__(
+        self,
+        user_name: str = "anon",
+        project_name: str = "default",
+        project_bpm: int = 90,
+        project_key: str = "C",
+    ):
         self.user_name = user_name
         self.project: Project = Project(project_name, project_bpm, project_key)
 
@@ -112,11 +132,29 @@ class Daw:
         # - then render to temp file
         # - then merge temp files
         print(yaml.dump(self.project))
+        for offset, pattern in self.project.playlist:
+            p = Path(f"./data/generated/{pattern.name}.wav")
+            if pattern.plugin.is_32bit:
+                command = f'"{VstPluginRenderer.mrs_watson_32}"'
+            else:
+                command = f'"{VstPluginRenderer.mrs_watson_64}"'
 
-        ...
+            command += f' --midi-file "{pattern.midi_file.absolute()}" --output "{p}" --plugin "{pattern.plugin.dll.absolute()}","{pattern.plugin.selected_fxp.absolute()}"'
+
+            print("running command: " + command)
+
+            run_checked(command)
 
 
-    def create_pattern(self, name: str, bpm: float, key: str, midi_file: Path, plugin: VstPlugin, bar_offset: int):
+    def create_pattern(
+        self,
+        name: str,
+        bpm: float,
+        key: str,
+        midi_file: Path,
+        plugin: VstPlugin,
+        bar_offset: int,
+    ):
         pattern = Pattern(name, bpm, key, plugin, midi_file)
         self.project.add_midi_pattern((bar_offset, pattern))
 

@@ -2,6 +2,10 @@
 
 A python based digital audio workstation
 
+Patterns should not have Bpm 
+
+continue gui
+
 ## roadmap
 
 - [ ] implementing core package
