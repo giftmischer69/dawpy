@@ -111,7 +111,7 @@ class Daw:
         # - then prepend  with offset silence
         # - then render to temp file
         # - then merge temp files
-        
+        print(yaml.dump(self.project))
 
         ...
 
